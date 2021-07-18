@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'Modulos.Consumos.apps.ConsumosConfig.name'
+    
 ]
 
 MIDDLEWARE = [
@@ -75,12 +77,13 @@ WSGI_APPLICATION = 'MiSonoff.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'Tesis-Sonoff',
-        'USER': 'postgres',
-        'PASSWORD': '12345678',
-        'HOST': 'localhost',
-        'DATABASE_PORT': '5432',
+        # 'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'Tesis-Sonoff.db',
+       # 'USER': 'postgres',
+       # 'PASSWORD': '12345678',
+       #'HOST': 'localhost',
+       # 'DATABASE_PORT': '5432',
     }
 }
 
