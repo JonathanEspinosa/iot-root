@@ -10,7 +10,7 @@ class Persona(models.Model):
     
     def nombreCompleto():
         txt = "{0} {1},{2}"
-        return txt.format(Self.nombre, Self.persona)
+        return txt.format(self.nombre, self.persona)
     def _str_(Self):
        return "{0}".format(Self.nombre)
 
