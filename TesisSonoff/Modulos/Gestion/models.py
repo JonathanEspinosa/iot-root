@@ -7,7 +7,7 @@ from django.db import models
 class GROUP(models.Model):
     groupcode = models.IntegerField(max_length=10, primary_key=True)
     name = models.CharField(max_length=10)
-    status = models.CharField(max_length=100)
+    status = models.BooleanField(default=False)
 class ENERGYCONSUPTION(models.Model):
     eneconcode = models.IntegerField(max_length=10, primary_key=True)
     groupcode = models.ForeignKey(GROUP, null=False, blank=False, on_delete=models.CASCADE)
