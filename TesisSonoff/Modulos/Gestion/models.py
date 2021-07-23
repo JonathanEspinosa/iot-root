@@ -36,6 +36,7 @@ class ROLDEVICE(models.Model):
     rolcode = models.ForeignKey(ROL, null=False, blank=False, on_delete=models.CASCADE) 
     devicecode = models.ForeignKey(GROUP, null=False, blank=False, on_delete=models.CASCADE) 
     status = models.BooleanField(default=False)
+    
 class USER(models.Model):
     usercode=models.IntegerField(max_length=10, primary_key=True)
     username = models.CharField(max_length=20)
