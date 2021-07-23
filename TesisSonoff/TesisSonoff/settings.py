@@ -78,7 +78,7 @@ WSGI_APPLICATION = 'TesisSonoff.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'TesisSonoff',
+        'NAME': 'ConsumoEnergetico',
         'USER': 'postgres',
         'PASSWORD': '12345678',
         'HOST': 'localhost',
