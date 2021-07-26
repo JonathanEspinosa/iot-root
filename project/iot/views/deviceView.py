@@ -7,3 +7,7 @@ class DeviceListView(ListAPIView):
     serializer_class = DeviceSerializer
     permission_classes = ()
     queryset = Device.objects.all()
+
+class DeviceToggle():
+    queryset = Device.objects.all()
+

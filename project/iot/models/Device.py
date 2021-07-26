@@ -13,7 +13,3 @@ class Device(models.Model):
     )
     topic = models.CharField(max_length=20)
     status = models.BooleanField(default=False)
-
-class Meta(object):
-    app_label = "models"
-
