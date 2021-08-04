@@ -10,4 +10,5 @@ class DeviceListView(ListAPIView):
 
 class DeviceToggle():
     queryset = Device.objects.all()
+    
 
