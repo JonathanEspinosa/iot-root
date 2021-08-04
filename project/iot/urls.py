@@ -11,5 +11,6 @@ urlpatterns = [
     path("type/test", typeView.testApiView.as_view(), name="type"),
     # Web service device table
     path("device/", DeviceListView.as_view(), name="device"),
+    path("publish/", DeviceListView.as_view(), name="publish"),
     # path("device/{consultaVO}", DeviceListView.as_view(), name="device"),
 ]
