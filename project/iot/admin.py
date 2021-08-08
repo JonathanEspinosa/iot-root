@@ -1,8 +1,6 @@
-from iot.models.Type import Type
-from iot.models.Device import Device
-from iot.models.Group import Group
+from iot import models
 from django.contrib import admin
 
-admin.site.register(Type)
-admin.site.register(Group)
-admin.site.register(Device)
+admin.site.register(models.Type)
+admin.site.register(models.Group)
+admin.site.register(models.Device)
