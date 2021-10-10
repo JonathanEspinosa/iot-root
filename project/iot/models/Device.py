@@ -11,5 +11,5 @@ class Device(models.Model):
     typecode = models.ForeignKey(
         Type, null=False, blank=False, on_delete=models.CASCADE
     )
-    topic = models.CharField(max_length=20)
+    name = models.CharField(max_length=20)
     status = models.BooleanField(default=False)

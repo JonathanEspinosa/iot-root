@@ -29,4 +29,6 @@ class Mqtt:
         client.on_connect = on_connect
         client.on_message = on_message
         client.connect(broker, port)
+        # print("=============client._bind_address===========")
+        # print(client.__dict__)
         return client

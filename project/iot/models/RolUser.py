@@ -9,3 +9,6 @@ class RolUser(models.Model):
         User, null=False, blank=False, on_delete=models.CASCADE
     )
     status = models.BooleanField(default=False)
+
+    class Meta:
+        unique_together = (("rolcode", "usercode"),)

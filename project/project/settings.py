@@ -39,7 +39,10 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "rest_framework",
     "rest_framework.authtoken",
-    "iot", 
+    # Application
+    "iot",
+    # CORS
+    "corsheaders",
 ]
 
 MIDDLEWARE = [
@@ -50,7 +53,13 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    # CORS
+    "corsheaders.middleware.CorsMiddleware",
+    "django.middleware.common.CommonMiddleware",
 ]
+
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ORIGIN_WHITELIST = ("http://localhost:8080",)
 
 ROOT_URLCONF = "project.urls"
 
@@ -77,13 +86,13 @@ WSGI_APPLICATION = "project.wsgi.application"
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'Tesis',
-        'USER': 'postgres',
-        'PASSWORD': 'tesis',
-        'HOST': 'localhost',
-        'DATABASE_PORT': '5432',
+    "default": {
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "NAME": "Tesis",
+        "USER": "postgres",
+        "PASSWORD": "tesis",
+        "HOST": "localhost",
+        "DATABASE_PORT": "5432",
     }
 }
 
@@ -110,9 +119,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
-LANGUAGE_CODE = "en-us" 
+LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = 'America/Guayaquil'
+TIME_ZONE = "America/Guayaquil"
 
 USE_I18N = True
 

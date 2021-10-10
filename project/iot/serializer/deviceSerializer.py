@@ -1,11 +1,12 @@
 from iot.models.Device import Device
 from rest_framework import serializers
 
-
 class DeviceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Device
-        fields = ("devicecode", "groupcode", "typecode", "topic", "status")
+        fields = ("devicecode", "groupcode", "typecode", "name", "status") 
 
-        # GROUP, null=False, blank=False, on_delete=models.CASCADE
-        # TYPE, null=False, blank=False, on_delete=models.CASCADE
+class DeviceTableSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Device
+        fields = ("devicecode", "groupcode", "typecode", "name", "status")

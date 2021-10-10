@@ -1,8 +1,7 @@
+from iot.models.Type import Type
 from iot.vo.sonoff import SonoffVO
-from rest_framework.fields import empty
 from iot.mqtt import mqtt
 from iot.serializer.typeSerializer import TypeSerializer
-from iot.models.Type import Type
 from rest_framework.generics import ListAPIView
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -13,8 +12,7 @@ import json
 
 class TypeListView(ListAPIView):
     serializer_class = TypeSerializer
-    permission_classes = ()
-    queryset = Type.objects.all()
+    queryset = Type.objects.filter(status=True)
 
 
 class testApiView(APIView):
