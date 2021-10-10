@@ -1,2 +1,7 @@
 env/
+env/Include
+env/Scripts
+env/Share
+env/pyvenv.cfg
 .vscode/settings.json
+*.pyc
