@@ -43,10 +43,19 @@ INSTALLED_APPS = [
     "iot",
     # CORS
     "corsheaders",
+    # CRONJOB
+    "django_crontab",
 ]
 
+# Tareas programadas
+CRONJOBS = [
+    # ('*/2 * * * *', 'iot.energyConsuptionView.my_cron_job')
+]
+#  ('Tiempo de tarea', 'Método de tarea', 'Ruta de producción del registro de tareas') # '>>' No menos
+
+
 MIDDLEWARE = [
-      # CORS
+    # CORS
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.security.SecurityMiddleware",
@@ -56,13 +65,13 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-  
-    
+
+
 ]
 
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ORIGIN_WHITELIST = ("http://localhost:8080",
-"http://localhost:56732")
+                         "http://localhost:56732")
 
 ROOT_URLCONF = "project.urls"
 
