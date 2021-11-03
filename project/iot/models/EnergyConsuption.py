@@ -7,6 +7,5 @@ class EnergyConsuption(models.Model):
     groupcode = models.ForeignKey(
         Group, null=False, blank=False, on_delete=models.CASCADE
     )
-    date = models.DateField(auto_now=False, name="Date Field")
-    energytoday = models.IntegerField()
-    energyyesterday = models.IntegerField()
+    date = models.DateField(auto_now=False)
+    energyday = models.FloatField(default=False) 

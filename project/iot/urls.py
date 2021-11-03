@@ -1,5 +1,7 @@
 
-from iot.views import groupView, typeView, deviceView, userView, rolView, rolUserView
+from iot.views import (groupView, typeView, deviceView, userView, rolView,
+ rolUserView,deviceAllView,deviceGroupView,groupidView,loginView,onoff,
+ rolDeviceAllView,rolDeviceView,rolUser1View, RolView1, energyConsuptionView)
 from django.urls import path
 
 urlpatterns = [
@@ -40,4 +42,18 @@ urlpatterns = [
     # Web service rol device table
     path("rolUser/listRolByUser/<usercode>", rolUserView.ListRolByUser.as_view(), name="rolUser"),
     path("rolUser/configure", rolUserView.Configure.as_view(), name="rolUser"),
+    path("user/<str:username>,<str:password>",loginView.Login.as_view(), name= "user"),#jessy
+    path("roluser/<int:usercode>", rolUser1View.List_Rol.as_view(), name= "roluser"),#jessy
+    path("rol/", RolView1.RolListView.as_view(), name= "rol"),#jessy
+    path("roldevice/<int:rolcode>", rolDeviceView.List_RolDevice.as_view(), name= "roldevice"),#jessy
+    path("device/<int:devicecode>", deviceGroupView.List_GroupDevice.as_view(), name= "device"),#jessy
+    path("deviceonoff/<str:name>", onoff.OnoffApiView.as_view(), name="on/off"),
+    path("listroldevice/", rolDeviceAllView.RolDeviceAlltView.as_view(), name="roldevice"),
+    path("deviceall/", deviceAllView.DeviceAllView.as_view(), name="alldevice"),
+    path("groupid/<int:groupcode>", groupidView.GroupidListView.as_view(), name="groupid"),
+    # Web service energy consuption table
+    path("energyconsuption/registerDay", energyConsuptionView.RegisterDay.as_view(), name="energyconsuption"),
+    path("energyconsuption/rangeDateByGroup/<int:groupcode>", energyConsuptionView.RangeDateByGroup.as_view(), name="energyconsuption"),
+    path("energyconsuption/checkEnergyConsumption", energyConsuptionView.CheckEnergyConsumption.as_view(), name="energyconsuption"),
+
 ]
