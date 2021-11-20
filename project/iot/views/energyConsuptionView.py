@@ -15,7 +15,7 @@ import jsonpickle
 
 class CheckEnergyConsumption(APIView):
     def post(self, request, format=None):
-        toJson = json.loads(json.dumps(request.data)) 
+        toJson = json.loads(json.dumps(request.data))
         minDate: date = datetime.fromisoformat(toJson["minDate"])
         maxDate: date = datetime.fromisoformat(toJson["maxDate"])
         # print(minDate)
@@ -26,12 +26,12 @@ class CheckEnergyConsumption(APIView):
         #              .filter(date__lte=maxDate)):
         #     print(str(getattr(item, "date")) + '==' +
         #           str(getattr(item, "energyday")))
-        energy= (EnergyConsuption.objects
-                     .filter(groupcode=toJson["groupcode"])
-                     .filter(date__gte=minDate)
-                     .filter(date__lte=maxDate)
-                     .aggregate(Sum("energyday"))["energyday__sum"]
-                     )
+        energy = (EnergyConsuption.objects
+                  .filter(groupcode=toJson["groupcode"])
+                  .filter(date__gte=minDate)
+                  .filter(date__lte=maxDate)
+                  .aggregate(Sum("energyday"))["energyday__sum"]
+                  )
         return Response({"energy": energy})
 
 
@@ -39,14 +39,20 @@ class RangeDateByGroup(APIView):
     def get(self, request, groupcode):
         minDate: date = (EnergyConsuption.objects.filter(groupcode=groupcode)
                          .aggregate(Min("date"))["date__min"])
+        maxDate: date = None
+        if(minDate is None):
+            minDate = date.today().ctime()
+            maxDate = (date.today() - timedelta(days=1)).ctime()
+        else:
+            minDate = minDate.ctime()
+            maxDate: date = (EnergyConsuption.objects.filter(groupcode=groupcode)
+                             .aggregate(Max("date"))["date__max"])
+            maxDate = maxDate.ctime()
         print('***************************************')
-        print(minDate.ctime())
-        maxDate: date = (EnergyConsuption.objects.filter(groupcode=groupcode)
-                         .aggregate(Max("date"))["date__max"])
-
+        print(minDate)
+        print(maxDate)
         print('***************************************')
-        print(maxDate.ctime())
-        return Response({"minDate": minDate.ctime(), "maxDate": maxDate.ctime()})
+        return Response({"minDate": minDate, "maxDate": maxDate})
 
 
 class RegisterDay(APIView):
