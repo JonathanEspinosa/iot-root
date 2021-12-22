@@ -49,7 +49,7 @@ INSTALLED_APPS = [
 
 # Tareas programadas
 CRONJOBS = [
-    # ('*/2 * * * *', 'iot.energyConsuptionView.my_cron_job')
+    ('30 2 * * *', 'iot.cron.my_cron_job', '>> iot-root/project/cronJobs.log 2>&1')
 ]
 #  ('Tiempo de tarea', 'Método de tarea', 'Ruta de producción del registro de tareas') # '>>' No menos
 
