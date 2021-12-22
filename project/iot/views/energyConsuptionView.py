@@ -57,9 +57,7 @@ class RangeDateByGroup(APIView):
 
 class RegisterDay(APIView):
     def get(self, request, format=None):
-        # def my_cron_job():
         errorResponse = []
-    # energyday: float sumo todos los dias para dar el resultado, no usar el total'
         for device in Device.objects.filter(typecode=3):
             name = getattr(device, "name")
             # Defines topic a escuchar
