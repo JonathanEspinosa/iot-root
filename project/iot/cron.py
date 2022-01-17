@@ -14,6 +14,9 @@ import jsonpickle
 
 
 def my_cron_job():
+    print("======================== TAREA PROGRAMADA =======================")
+    print("=======================" +
+          datetime.now().strftime("%H:%M:%S") + "========================")
     errorResponse = []
     for device in Device.objects.filter(typecode=3):
         name = getattr(device, "name")
