@@ -1,7 +1,7 @@
 from paho.mqtt import client as mqtt_client
 from queue import Queue
 
-broker = "3.140.85.3"
+broker = "10.9.102.134"
 port = 1883
 subscribeTopic = None
 # username = 'emqx'

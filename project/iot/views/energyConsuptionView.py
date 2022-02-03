@@ -1,4 +1,5 @@
 from datetime import date, datetime, timedelta
+from typing import List
 from django.db.models.aggregates import Max, Min, Sum
 from django.http.response import JsonResponse
 from rest_framework.response import Response
@@ -26,13 +27,28 @@ class CheckEnergyConsumption(APIView):
         #              .filter(date__lte=maxDate)):
         #     print(str(getattr(item, "date")) + '==' +
         #           str(getattr(item, "energyday")))
-        energy = (EnergyConsuption.objects
-                  .filter(groupcode=toJson["groupcode"])
-                  .filter(date__gte=minDate)
-                  .filter(date__lte=maxDate)
-                  .aggregate(Sum("energyday"))["energyday__sum"]
-                  )
-        return Response({"energy": energy})
+        # energy = (EnergyConsuption.objects
+        #           .filter(groupcode=toJson["groupcode"])
+        #           .filter(date__gte=minDate)
+        #           .filter(date__lte=maxDate)
+        #           #   .aggregate(Sum("energyday"))["energyday__sum"]
+        #           )
+
+        responseList: List[EnergyConsuptionVO] = []
+        for register in (EnergyConsuption.objects
+                         .filter(groupcode=toJson["groupcode"])
+                         .filter(date__gte=minDate)
+                         .filter(date__lte=maxDate)
+                         #   .aggregate(Sum("energyday"))["energyday__sum"]
+                         ):
+            resp = EnergyConsuptionVO()
+            aux: date = getattr(register, "date")
+            resp.date = aux.strftime('%d-%m-%Y')
+            resp.energyday = getattr(register, "energyday")
+            responseList.append(resp)
+        return Response(json.loads(jsonpickle.encode(responseList)))
+
+        # return Response({"energy": energy})
 
 
 class RangeDateByGroup(APIView):

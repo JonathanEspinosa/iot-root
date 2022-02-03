@@ -9,6 +9,6 @@ class EnergyConsuptionVO:
 
     eneconcode: int
     groupcode: int
-    date:  date
+    date:  str
     energyday: float
     
