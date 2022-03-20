@@ -13,6 +13,7 @@ from iot.serializer.deviceSerializer import DeviceTableSerializer, DeviceSeriali
 from rest_framework.generics import ListAPIView
 from iot.vo.deviceSelect import DeviceSelectVO
 
+
 class Create(APIView):
     def post(self, request, format=None):
         deviceVo = DeviceVO(json.dumps(request.data))
@@ -94,14 +95,17 @@ class Update(APIView):
 class FilterTableByGroupCode(ListAPIView):
     serializer_class = DeviceTableSerializer
     permission_classes = ()
+
     def get_queryset(self):
         return Device.objects.filter(groupcode=self.kwargs.get("groupcode"))
 
-# Listar todos los dispositivos para asignar en roles        
+# Listar todos los dispositivos para asignar en roles
+
+
 class ListAll(APIView):
     def get(self, request, format=None):
         responseList: List[DeviceSelectVO] = []
-        for device in Device.objects.filter(status=True):
+        for device in Device.objects.filter(status=True).exclude(typecode=3):
             resp = DeviceSelectVO()
             group = getattr(device, "groupcode")
             resp.devicecode = getattr(device, "devicecode")
@@ -110,4 +114,3 @@ class ListAll(APIView):
             resp.status = getattr(device, "status")
             responseList.append(resp)
         return Response(json.loads(jsonpickle.encode(responseList)))
-

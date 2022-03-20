@@ -37,15 +37,23 @@ class CheckEnergyConsumption(APIView):
         responseList: List[EnergyConsuptionVO] = []
         for register in (EnergyConsuption.objects
                          .filter(groupcode=toJson["groupcode"])
-                         .filter(date__gte=minDate)
-                         .filter(date__lte=maxDate)
-                         #   .aggregate(Sum("energyday"))["energyday__sum"]
+                         .filter(date__gte=minDate).filter(date__lte=maxDate)
+                         if toJson["groupcode"] > 0
+                         else EnergyConsuption.objects
+                         .filter(date__gte=minDate).filter(date__lte=maxDate)
                          ):
             resp = EnergyConsuptionVO()
             aux: date = getattr(register, "date")
             resp.date = aux.strftime('%d-%m-%Y')
             resp.energyday = getattr(register, "energyday")
-            responseList.append(resp)
+            if ([x for x in responseList if x.date == resp.date] == []):
+                responseList.append(resp)
+            else:
+                [x for x in responseList if x.date == resp.date][0].energyday = (
+                    [x for x in responseList if x.date == resp.date][0]
+                    .energyday + resp.energyday
+                )
+
         return Response(json.loads(jsonpickle.encode(responseList)))
 
         # return Response({"energy": energy})
@@ -53,16 +61,24 @@ class CheckEnergyConsumption(APIView):
 
 class RangeDateByGroup(APIView):
     def get(self, request, groupcode):
-        minDate: date = (EnergyConsuption.objects.filter(groupcode=groupcode)
-                         .aggregate(Min("date"))["date__min"])
+        minDate: date = (
+            EnergyConsuption.objects
+            .filter(groupcode=groupcode).aggregate(Min("date"))["date__min"]
+            if groupcode > 0
+            else EnergyConsuption.objects.aggregate(Min("date"))["date__min"]
+        )
         maxDate: date = None
         if(minDate is None):
             minDate = date.today().ctime()
             maxDate = (date.today() - timedelta(days=1)).ctime()
         else:
             minDate = minDate.ctime()
-            maxDate: date = (EnergyConsuption.objects.filter(groupcode=groupcode)
-                             .aggregate(Max("date"))["date__max"])
+            maxDate = (
+                EnergyConsuption.objects
+                .filter(groupcode=groupcode).aggregate(Max("date"))["date__max"]
+                if groupcode > 0
+                else EnergyConsuption.objects.aggregate(Max("date"))["date__max"]
+            )
             maxDate = maxDate.ctime()
         print('***************************************')
         print(minDate)
